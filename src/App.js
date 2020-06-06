@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
 import Form from './components/Form';
 import Song from './components/Song';
-
+import Info from './components/Info';
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
     }
 
     callAPILyrics();
-  }, [searchLyrics])
+  }, [searchLyrics, info])
   return (
     <Fragment>
       <Form 
@@ -41,7 +41,9 @@ function App() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
-
+            <Info 
+              info={info}
+            />
           </div>
           <div className="col-md-6">
             <Song 
