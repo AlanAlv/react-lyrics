@@ -8,6 +8,7 @@ function App() {
 
   const [ searchLyrics, saveSearchLyrics ] = useState({});
   const [ lyrics, saveLyrics ] = useState('');
+  const [ info, saveInfo ] = useState('');
 
   useEffect(() => {
     if (Object.keys(searchLyrics).length === 0) return;
@@ -16,10 +17,17 @@ function App() {
       const { artist, song } = searchLyrics;
 
       const url = `https://api.lyrics.ovh/v1/${artist}/${song}`;
+      const url2 = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artist}`
 
-      const result = await axios.get(url);
+      const [lyrics, info] = await Promise.all([
+        axios.get(url),
+        axios.get(url2)
+      ]);
 
-      saveLyrics(result.data.lyrics);
+      saveLyrics(lyrics.data.lyrics);
+      saveInfo(info.data.artists[0]);
+
+      //saveLyrics(result.data.lyrics);
     }
 
     callAPILyrics();
