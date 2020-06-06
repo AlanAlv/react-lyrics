@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Form = () => {
+const Form = ({saveSearchLyrics}) => {
 
     const [ search, saveSearch] = useState({
         artist: '',
@@ -20,7 +20,6 @@ const Form = () => {
     }
 
     // API Call
-
     const searchInfo = e => {
         e.preventDefault();
 
@@ -33,10 +32,22 @@ const Form = () => {
         // Send to main component
 
         saveError(false);
+
+        saveSearchLyrics(search);
     }
 
     return ( 
         <div className="bg-info">
+            { error 
+                ? 
+                    <p 
+                        className="alert alert-danger text-center p-22"
+                    >
+                        All fields are required
+                    </p>
+                :
+                    null
+            }
             <div className="container">
                 <div className="row">
                     <form 
@@ -49,6 +60,7 @@ const Form = () => {
                             </legend>
 
                             <div className="row">
+
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Artist</label>
