@@ -1,11 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Form = () => {
+
+    const [ search, saveSearch] = useState({
+        artist: '',
+        song: ''
+    });
+
+    const [ error, saveError] = useState(false);
+
+    const { artist, song } = search;
+
+    // Read input content
+    const updateState = e => {
+        saveSearch({
+            ...search,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    // API Call
+
+    const searchInfo = e => {
+        e.preventDefault();
+
+        // Validation
+        if (artist.trim() === '' || song.trim() === ''){
+            saveError(true);
+            return;
+        }
+
+        // Send to main component
+
+        saveError(false);
+    }
+
     return ( 
         <div className="bg-info">
             <div className="container">
                 <div className="row">
                     <form 
+                        onSubmit={searchInfo}
                         className="col card text-white bg-transparent mb-5 pt-5 pb-5"
                     >
                         <fieldset>
@@ -22,6 +57,8 @@ const Form = () => {
                                             className="form-control" 
                                             name="artist"
                                             placeholder="Artist Name"
+                                            onChange={updateState}
+                                            value={artist}
                                         />
                                     </div>
                                 </div>
@@ -34,6 +71,8 @@ const Form = () => {
                                             className="form-control" 
                                             name="song"
                                             placeholder="Song Name"
+                                            onChange={updateState}
+                                            value={song}
                                         />
                                     </div>
                                 </div>
