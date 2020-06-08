@@ -13,8 +13,8 @@ const Info = ({info}) => {
             </div>
             <div className="card-body">
                 <img src={strArtistThumb} alt="Artist Logo"/>
-                <p className="card-text">Genre: {strGenre}</p>
-                <p className="card-text">Biography: </p>
+                <h5 className="card-text">Genre: {strGenre}</h5>
+                <h5 className="card-text">Biography: </h5>
                 <p className="card-text">{strBiographyEN}</p>
                 <p className="card-text">
                     <a href={`https://${info.strFacebook}`} target="_blank" rel="noopener noreferrer">
